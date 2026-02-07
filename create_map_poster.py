@@ -144,18 +144,45 @@ def is_latin_script(text):
     return (latin_count / total_alpha) > 0.8
 
 
-def generate_output_filename(city, theme_name, output_format):
+def generate_output_filename(city, theme_name, output_format, distance):
     """
-    Generate unique output filename with city, theme, and datetime.
+    Generate unique output filename with city, theme, and distance.
+    Adds incremental suffix if file already exists.
     """
     if not os.path.exists(POSTERS_DIR):
         os.makedirs(POSTERS_DIR)
 
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     city_slug = city.lower().replace(" ", "_")
     ext = output_format.lower()
-    filename = f"{city_slug}_{theme_name}_{timestamp}.{ext}"
-    return os.path.join(POSTERS_DIR, filename)
+
+    # Convert meters to kilometers for display
+    if distance >= 1000:
+        km = distance / 1000
+        # Check if km is integer (distance divisible by 1000)
+        if distance % 1000 == 0:
+            distance_str = f"{int(km)}km"
+        else:
+            # Show one decimal place
+            distance_str = f"{km:.1f}km"
+    else:
+        distance_str = f"{distance}m"
+
+    # Base filename without suffix
+    base_filename = f"{city_slug}_{theme_name}_{distance_str}"
+
+    # Find a unique filename
+    suffix = 0
+    while True:
+        if suffix == 0:
+            filename = f"{base_filename}.{ext}"
+        else:
+            filename = f"{base_filename}_{suffix}.{ext}"
+
+        filepath = os.path.join(POSTERS_DIR, filename)
+        if not os.path.exists(filepath):
+            return filepath
+
+        suffix += 1
 
 
 def get_available_themes():
@@ -1023,7 +1050,7 @@ Examples:
 
         for theme_name in themes_to_generate:
             THEME = load_theme(theme_name)
-            output_file = generate_output_filename(args.city, theme_name, args.format)
+            output_file = generate_output_filename(args.city, theme_name, args.format, args.distance)
             create_poster(
                 args.city,
                 args.country,
