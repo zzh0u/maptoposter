@@ -1,13 +1,13 @@
-# City Map Poster Generator
+# 城市地图海报生成器
 
-Generate beautiful, minimalist map posters for any city in the world.
+为世界任何城市生成美观、简约的地图海报。
 
 <img src="posters/singapore_neon_cyberpunk_20260118_153328.png" width="250">
 <img src="posters/dubai_midnight_blue_20260118_140807.png" width="250">
 
-## Examples
+## 示例
 
-| Country      | City           | Theme           | Poster |
+| 国家      | 城市           | 主题           | 海报 |
 |:------------:|:--------------:|:---------------:|:------:|
 | USA          | San Francisco  | sunset          | <img src="posters/san_francisco_sunset_20260118_144726.png" width="250"> |
 | Spain        | Barcelona      | warm_beige      | <img src="posters/barcelona_warm_beige_20260118_140048.png" width="250"> |
@@ -20,22 +20,22 @@ Generate beautiful, minimalist map posters for any city in the world.
 | UAE          | Dubai          | midnight_blue   | <img src="posters/dubai_midnight_blue_20260118_140807.png" width="250"> |
 | USA          | Seattle        | emerald         | <img src="posters/seattle_emerald_20260124_162244.png" width="250"> |
 
-## Installation
+## 安装
 
-### With uv (Recommended)
+### 使用 uv（推荐）
 
-Make sure [uv](https://docs.astral.sh/uv/) is installed. Running the script by prepending `uv run` automatically creates and manages a virtual environment.
+确保已安装 [uv](https://docs.astral.sh/uv/)。在脚本前加上 `uv run` 会自动创建和管理虚拟环境。
 
 ```bash
-# First run will automatically install dependencies
+# 首次运行会自动安装依赖
 uv run ./create_map_poster.py --city "Paris" --country "France"
 
-# Or sync dependencies explicitly first (using locked versions)
+# 或者先显式同步依赖（使用锁定版本）
 uv sync --locked
 uv run ./create_map_poster.py --city "Paris" --country "France"
 ```
 
-### With pip + venv
+### 使用 pip + venv
 
 ```bash
 python -m venv .venv
@@ -43,107 +43,107 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## Usage
+## 使用
 
-### Generate Poster
+### 生成海报
 
-If you're using `uv`:
+如果你使用 `uv`：
 
 ```bash
 uv run ./create_map_poster.py --city <city> --country <country> [options]
 ```
 
-Otherwise (pip + venv):
+否则（pip + venv）：
 
 ```bash
 python create_map_poster.py --city <city> --country <country> [options]
 ```
 
-### Required Options
+### 必需选项
 
-| Option | Short | Description |
+| 选项 | 短选项 | 描述 |
 |--------|-------|-------------|
-| `--city` | `-c` | City name (used for geocoding) |
-| `--country` | `-C` | Country name (used for geocoding) |
+| `--city` | `-c` | 城市名称（用于地理编码） |
+| `--country` | `-C` | 国家名称（用于地理编码） |
 
-### Optional Flags
+### 可选标志
 
-| Option | Short | Description | Default |
+| 选项 | 短选项 | 描述 | 默认值 |
 |--------|-------|-------------|---------|
-| **OPTIONAL:** `--latitude` | `-lat` | Override latitude center point (use with --longitude) | |
-| **OPTIONAL:** `--longitude` | `-long` | Override longitude center point (use with --latitude) | |
-| **OPTIONAL:** `--country-label` | | Override country text displayed on poster | |
-| **OPTIONAL:** `--theme` | `-t` | Theme name | terracotta |
-| **OPTIONAL:** `--distance` | `-d` | Map radius in meters | 18000 |
-| **OPTIONAL:** `--list-themes` | | List all available themes | |
-| **OPTIONAL:** `--all-themes` | | Generate posters for all available themes | |
-| **OPTIONAL:** `--width` | `-W` | Image width in inches | 12 (max: 20) |
-| **OPTIONAL:** `--height` | `-H` | Image height in inches | 16 (max: 20) |
+| **OPTIONAL:** `--latitude` | `-lat` | 覆盖纬度中心点（与 --longitude 一起使用） | |
+| **OPTIONAL:** `--longitude` | `-long` | 覆盖经度中心点（与 --latitude 一起使用） | |
+| **OPTIONAL:** `--country-label` | | 覆盖海报上显示的国家文本 | |
+| **OPTIONAL:** `--theme` | `-t` | 主题名称 | terracotta |
+| **OPTIONAL:** `--distance` | `-d` | 地图半径（米） | 18000 |
+| **OPTIONAL:** `--list-themes` | | 列出所有可用主题 | |
+| **OPTIONAL:** `--all-themes` | | 为所有可用主题生成海报 | |
+| **OPTIONAL:** `--width` | `-W` | 图像宽度（英寸） | 12 (最大: 20) |
+| **OPTIONAL:** `--height` | `-H` | 图像高度（英寸） | 16 (最大: 20) |
 
-### Multilingual Support - i18n
+### 多语言支持 - i18n
 
-Display city and country names in your language with custom fonts from google fonts:
+使用来自 Google Fonts 的自定义字体以您的语言显示城市和国家名称：
 
-| Option | Short | Description |
+| 选项 | 短选项 | 描述 |
 |--------|-------|-------------|
-| `--display-city` | `-dc` | Custom display name for city (e.g., "東京") |
-| `--display-country` | `-dC` | Custom display name for country (e.g., "日本") |
-| `--font-family` | | Google Fonts family name (e.g., "Noto Sans JP") |
+| `--display-city` | `-dc` | 城市自定义显示名称（例如："東京"） |
+| `--display-country` | `-dC` | 国家自定义显示名称（例如："日本"） |
+| `--font-family` | | Google Fonts 字体族名称（例如："Noto Sans JP"） |
 
-**Examples:**
+**示例：**
 
 ```bash
-# Japanese
+# 日语
 python create_map_poster.py -c "Tokyo" -C "Japan" -dc "東京" -dC "日本" --font-family "Noto Sans JP"
 
-# Korean
+# 韩语
 python create_map_poster.py -c "Seoul" -C "South Korea" -dc "서울" -dC "대한민국" --font-family "Noto Sans KR"
 
-# Arabic
+# 阿拉伯语
 python create_map_poster.py -c "Dubai" -C "UAE" -dc "دبي" -dC "الإمارات" --font-family "Cairo"
 ```
 
-**Note**: Fonts are automatically downloaded from Google Fonts and cached locally in `fonts/cache/`.
+**注意**：字体会自动从 Google Fonts 下载并缓存在本地 `fonts/cache/` 目录中。
 
-### Resolution Guide (300 DPI)
+### 分辨率指南（300 DPI）
 
-Use these values for `-W` and `-H` to target specific resolutions:
+使用以下 `-W` 和 `-H` 值以定位特定分辨率：
 
-| Target | Resolution (px) | Inches (-W / -H) |
+| 目标 | 分辨率（像素） | 英寸（-W / -H） |
 |--------|-----------------|------------------|
-| **Instagram Post** | 1080 x 1080 | 3.6 x 3.6 |
-| **Mobile Wallpaper** | 1080 x 1920 | 3.6 x 6.4 |
-| **HD Wallpaper** | 1920 x 1080 | 6.4 x 3.6 |
-| **4K Wallpaper** | 3840 x 2160 | 12.8 x 7.2 |
-| **A4 Print** | 2480 x 3508 | 8.3 x 11.7 |
+| **Instagram 帖子** | 1080 x 1080 | 3.6 x 3.6 |
+| **手机壁纸** | 1080 x 1920 | 3.6 x 6.4 |
+| **高清壁纸** | 1920 x 1080 | 6.4 x 3.6 |
+| **4K 壁纸** | 3840 x 2160 | 12.8 x 7.2 |
+| **A4 打印** | 2480 x 3508 | 8.3 x 11.7 |
 
-### Usage Examples
+### 使用示例
 
-#### Basic Examples
+#### 基本示例
 
 ```bash
-# Simple usage with default theme
+# 使用默认主题的简单用法
 python create_map_poster.py -c "Paris" -C "France"
 
-# With custom theme and distance
+# 使用自定义主题和距离
 python create_map_poster.py -c "New York" -C "USA" -t noir -d 12000
 ```
 
-#### Multilingual Examples (Non-Latin Scripts)
+#### 多语言示例（非拉丁文字）
 
-Display city names in their native scripts:
+以原生文字显示城市名称：
 
 ```bash
-# Japanese
+# 日语
 python create_map_poster.py -c "Tokyo" -C "Japan" -dc "東京" -dC "日本" --font-family "Noto Sans JP" -t japanese_ink
 
-# Korean
+# 韩语
 python create_map_poster.py -c "Seoul" -C "South Korea" -dc "서울" -dC "대한민국" --font-family "Noto Sans KR" -t midnight_blue
 
 # Thai
 python create_map_poster.py -c "Bangkok" -C "Thailand" -dc "กรุงเทพมหานคร" -dC "ประเทศไทย" --font-family "Noto Sans Thai" -t sunset
 
-# Arabic
+# 阿拉伯语
 python create_map_poster.py -c "Dubai" -C "UAE" -dc "دبي" -dC "الإمارات" --font-family "Cairo" -t terracotta
 
 # Chinese (Simplified)
@@ -153,7 +153,7 @@ python create_map_poster.py -c "Beijing" -C "China" -dc "北京" -dC "中国" --
 python create_map_poster.py -c "Phnom Penh" -C "Cambodia" -dc "ភ្នំពេញ" -dC "កម្ពុជា" --font-family "Noto Sans Khmer"
 ```
 
-#### Advanced Examples
+#### 高级示例
 
 ```bash
 # Iconic grid patterns
@@ -193,19 +193,19 @@ python create_map_poster.py --list-themes
 python create_map_poster.py -c "Tokyo" -C "Japan" --all-themes
 ```
 
-### Distance Guide
+### 距离指南
 
-| Distance | Best for |
+| 距离 | 最适合 |
 |----------|----------|
 | 4000-6000m | Small/dense cities (Venice, Amsterdam center) |
 | 8000-12000m | Medium cities, focused downtown (Paris, Barcelona) |
 | 15000-20000m | Large metros, full city view (Tokyo, Mumbai) |
 
-## Themes
+## 主题
 
 17 themes available in `themes/` directory:
 
-| Theme | Style |
+| 主题 | 风格 |
 |-------|-------|
 | `gradient_roads` | Smooth gradient shading |
 | `contrast_zones` | High contrast urban density |
@@ -225,7 +225,7 @@ python create_map_poster.py -c "Tokyo" -C "Japan" --all-themes
 | `copper_patina` | Oxidized copper aesthetic |
 | `monochrome_blue` | Single blue color family |
 
-## Output
+## 输出
 
 Posters are saved to `posters/` directory with format:
 
@@ -233,7 +233,7 @@ Posters are saved to `posters/` directory with format:
 {city}_{theme}_{YYYYMMDD_HHMMSS}.png
 ```
 
-## Adding Custom Themes
+## 添加自定义主题
 
 Create a JSON file in `themes/` directory:
 
@@ -255,7 +255,7 @@ Create a JSON file in `themes/` directory:
 }
 ```
 
-## Project Structure
+## 项目结构
 
 ```text
 map_poster/
@@ -270,19 +270,19 @@ map_poster/
 ```
 
 
-## Hacker's Guide
+## 黑客指南
 
-Quick reference for contributors who want to extend or modify the script.
+供希望扩展或修改脚本的贡献者快速参考。
 
-### Contributors Guide
+### 贡献者指南
 
-- Bug fixes are welcomed
-- Don't submit user interface (web/desktop)
-- Don't Dockerize for now
-- If you vibe code any fix please test it and see before and after version of poster
-- Before embarking on a big feature please ask in Discussions/Issue if it will be merged
+- 欢迎 bug 修复
+- 不要提交用户界面（Web/桌面）
+- 暂时不要 Docker 化
+- 如果您修复了任何代码，请测试并查看修复前后的海报版本
+- 在开始开发大型功能之前，请在 Discussions/Issue 中询问是否会被合并
 
-### Architecture Overview
+### 架构概述
 
 ```text
 ┌─────────────────┐     ┌──────────────┐     ┌─────────────────┐
