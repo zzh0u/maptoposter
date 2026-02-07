@@ -2,61 +2,22 @@
 
 为世界任何城市生成美观、简约的地图海报。
 
-<img src="posters/singapore_neon_cyberpunk_20260118_153328.png" width="250">
-<img src="posters/dubai_midnight_blue_20260118_140807.png" width="250">
-
-## 示例
-
-| 国家      | 城市           | 主题           | 海报 |
-|:------------:|:--------------:|:---------------:|:------:|
-| USA          | San Francisco  | sunset          | <img src="posters/san_francisco_sunset_20260118_144726.png" width="250"> |
-| Spain        | Barcelona      | warm_beige      | <img src="posters/barcelona_warm_beige_20260118_140048.png" width="250"> |
-| Italy        | Venice         | blueprint       | <img src="posters/venice_blueprint_20260118_140505.png" width="250"> |
-| Japan        | Tokyo          | japanese_ink    | <img src="posters/tokyo_japanese_ink_20260118_142446.png" width="250"> |
-| India        | Mumbai         | contrast_zones  | <img src="posters/mumbai_contrast_zones_20260118_145843.png" width="250"> |
-| Morocco      | Marrakech      | terracotta      | <img src="posters/marrakech_terracotta_20260118_143253.png" width="250"> |
-| Singapore    | Singapore      | neon_cyberpunk  | <img src="posters/singapore_neon_cyberpunk_20260118_153328.png" width="250"> |
-| Australia    | Melbourne      | forest          | <img src="posters/melbourne_forest_20260118_153446.png" width="250"> |
-| UAE          | Dubai          | midnight_blue   | <img src="posters/dubai_midnight_blue_20260118_140807.png" width="250"> |
-| USA          | Seattle        | emerald         | <img src="posters/seattle_emerald_20260124_162244.png" width="250"> |
-
 ## 安装
 
 ### 使用 uv（推荐）
 
 确保已安装 [uv](https://docs.astral.sh/uv/)。在脚本前加上 `uv run` 会自动创建和管理虚拟环境。
 
-```bash
-# 首次运行会自动安装依赖
-uv run ./create_map_poster.py --city "Paris" --country "France"
+测试尺寸
 
-# 或者先显式同步依赖（使用锁定版本）
-uv sync --locked
-uv run ./create_map_poster.py --city "Paris" --country "France"
+```bash
+uv run ./create_map_poster.py --city 'Changsha' --country China --width 12.8 --height 7.2 --distance 15000
 ```
 
-### 使用 pip + venv
+生成
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-## 使用
-
-### 生成海报
-
-如果你使用 `uv`：
-
-```bash
-uv run ./create_map_poster.py --city <city> --country <country> [options]
-```
-
-否则（pip + venv）：
-
-```bash
-python create_map_poster.py --city <city> --country <country> [options]
+uv run ./create_map_poster.py --city 'Changsha' --country China --all-themes --width 12.8 --height 7.2 --distance 30000
 ```
 
 ### 必需选项
@@ -177,7 +138,6 @@ python create_map_poster.py -c "Rome" -C "Italy" -t warm_beige -d 8000        # 
 # Coastal cities
 python create_map_poster.py -c "San Francisco" -C "USA" -t sunset -d 10000    # Peninsula grid
 python create_map_poster.py -c "Sydney" -C "Australia" -t ocean -d 12000      # Harbor city
-python create_map_poster.py -c "Mumbai" -C "India" -t contrast_zones -d 18000 # Coastal peninsula
 
 # River cities
 python create_map_poster.py -c "London" -C "UK" -t noir -d 15000              # Thames curves
@@ -203,12 +163,10 @@ python create_map_poster.py -c "Tokyo" -C "Japan" --all-themes
 
 ## 主题
 
-17 themes available in `themes/` directory:
+14 themes available in `themes/` directory:
 
 | 主题 | 风格 |
 |-------|-------|
-| `gradient_roads` | Smooth gradient shading |
-| `contrast_zones` | High contrast urban density |
 | `noir` | Pure black background, white roads |
 | `midnight_blue` | Navy background with gold roads |
 | `blueprint` | Architectural blueprint aesthetic |
@@ -216,7 +174,6 @@ python create_map_poster.py -c "Tokyo" -C "Japan" --all-themes
 | `warm_beige` | Vintage sepia tones |
 | `pastel_dream` | Soft muted pastels |
 | `japanese_ink` | Minimalist ink wash style |
-| `emerald`      | Lush dark green aesthetic |
 | `forest` | Deep greens and sage |
 | `ocean` | Blues and teals for coastal cities |
 | `terracotta` | Mediterranean warmth |
